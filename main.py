@@ -34,7 +34,7 @@ def main():
         cv2.imshow("CATUP Vision", frame)
 
         key = cv2.waitKey(1)
-
+  
         if key == ord("q"):
             break
 
