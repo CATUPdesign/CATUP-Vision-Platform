@@ -4,8 +4,10 @@ import numpy as np
 from camera.camera import Camera
 from vision.color_detector import detect_color
 from sorter.sorter_queue import SortQueue
+from motion.conveyor import Conveyor
 
 queue = SortQueue()
+conveyor = Conveyor()
 
 
 def main():
@@ -42,7 +44,7 @@ def main():
         S = int(avg[1])
         V = int(avg[2])
         color = detect_color(H, S, V)
-        
+
         last_color = ""
         if color != last_color:
             queue.push(color)
@@ -60,6 +62,13 @@ def main():
             (255, 255, 0),
             2
         )
+
+        # ---------- conveyor ----------
+        conveyor.update()
+
+        position = conveyor.get_position()
+
+
 
         # ---------- FPS ----------
         current = time.time()
@@ -96,6 +105,16 @@ def main():
             cv2.FONT_HERSHEY_SIMPLEX,
             0.8,
             (0,255,0),
+            2
+        )
+
+        cv2.putText(
+            frame,
+            f"POS : {position}",
+            (10,125),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.8,
+            (255,255,255),
             2
         )
 
