@@ -1,5 +1,5 @@
-# CATUP Bottle Color Sorter
+An open-source machine vision platform for community recycling and circular economy.
 
-Bottle cap color sorting machine using Raspberry Pi 4, Picamera2 and OpenCV.
+CATUP Vision Platform is a modular computer vision framework designed for low-cost recycling machines using Raspberry Pi, OpenCV, and AI.
 
-Status: 🚧 Development
+The first application is an intelligent bottle cap color sorting machine, but the platform is designed to support many recycling and manufacturing systems.
