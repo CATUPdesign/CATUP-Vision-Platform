@@ -3,6 +3,9 @@ import time
 import numpy as np
 from camera.camera import Camera
 from vision.color_detector import detect_color
+from sorter.sorter_queue import SortQueue
+
+queue = SortQueue()
 
 
 def main():
@@ -39,6 +42,11 @@ def main():
         S = int(avg[1])
         V = int(avg[2])
         color = detect_color(H, S, V)
+        
+        last_color = ""
+        if color != last_color:
+            queue.push(color)
+            last_color = color
 
         # ---------- Crosshair ----------
         cv2.line(frame, (cx - 20, cy), (cx + 20, cy), (0, 255, 0), 2)
@@ -80,7 +88,7 @@ def main():
             (0, 255, 255),
             2
         )
-        
+
         cv2.putText(
             frame,
             f"COLOR : {color}",
