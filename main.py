@@ -2,6 +2,7 @@ import cv2
 import time
 import numpy as np
 from camera.camera import Camera
+from vision.color_detector import detect_color
 
 
 def main():
@@ -37,6 +38,7 @@ def main():
         H = int(avg[0])
         S = int(avg[1])
         V = int(avg[2])
+        color = detect_color(H, S, V)
 
         # ---------- Crosshair ----------
         cv2.line(frame, (cx - 20, cy), (cx + 20, cy), (0, 255, 0), 2)
@@ -76,6 +78,16 @@ def main():
             cv2.FONT_HERSHEY_SIMPLEX,
             0.7,
             (0, 255, 255),
+            2
+        )
+        
+        cv2.putText(
+            frame,
+            f"COLOR : {color}",
+            (10,95),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.8,
+            (0,255,0),
             2
         )
 
