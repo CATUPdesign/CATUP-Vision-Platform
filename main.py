@@ -11,25 +11,42 @@ def main():
     while True:
 
         frame = cam.read()
-        height, width = frame.shape[:2]
+        h, w = frame.shape[:2]
 
-        cv2.line(frame, (width//2 - 20, height//2),
-                (width//2 + 20, height//2), (0,255,0), 2)
+        cx = w // 2
+        cy = h // 2
 
-        cv2.line(frame, (width//2, height//2 - 20),
-                (width//2, height//2 + 20), (0,255,0), 2)
+        # Crosshair
+        cv2.line(frame, (cx - 20, cy), (cx + 20, cy), (0,255,0), 2)
+        cv2.line(frame, (cx, cy - 20), (cx, cy + 20), (0,255,0), 2)
 
-        current_time = time.time()
-        fps = 1 / (current_time - prev_time)
-        prev_time = current_time
+        # ROI
+        size = 100
 
-        cv2.putText(frame,
-                    f"FPS: {fps:.1f}",
-                    (10,30),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.8,
-                    (0,255,0),
-                    2)
+        cv2.rectangle(
+            frame,
+            (cx-size//2, cy-size//2),
+            (cx+size//2, cy+size//2),
+            (255,255,0),
+            2
+        )
+
+        # FPS
+        current = time.time()
+
+        fps = 1/(current-prev_time)
+
+        prev_time = current
+
+        cv2.putText(
+            frame,
+            f"FPS : {fps:.1f}",
+            (10,30),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.8,
+            (0,255,0),
+            2
+        )
 
         cv2.imshow("CATUP Vision", frame)
 
